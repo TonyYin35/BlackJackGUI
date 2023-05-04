@@ -61,7 +61,7 @@ public class GameJframe extends BaseFrame {
 	    
 //		// Load the background image
 //		try {
-//			Image image = ImageIO.read(new File("Images/gamepaper.jpg"));
+//			Image image = ImageIO.read(new File("Images/gamepaper.png"));
 //			Image scaledImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
 //			JLabel background = new JLabel(new ImageIcon(scaledImage));
 //			setContentPane(background);
@@ -75,7 +75,7 @@ public class GameJframe extends BaseFrame {
 		    protected void paintComponent(Graphics g) {
 		        super.paintComponent(g);
 		        try {
-		            Image image = ImageIO.read(new File("Images/gamepaper.jpg"));
+		            Image image = ImageIO.read(new File("Images/gamepaper.png"));
 		            g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		        } catch (IOException e) {
 		            e.printStackTrace();
