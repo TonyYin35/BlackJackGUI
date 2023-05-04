@@ -29,7 +29,7 @@ public class MenuJframe extends BaseFrame{
 
         // Load the background image
         try {
-            Image image = ImageIO.read(new File("Images/background.jpg"));
+            Image image = ImageIO.read(new File("Images/background1.png"));
             Image scaledImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
             JLabel background = new JLabel(new ImageIcon(scaledImage));
             setContentPane(background);
@@ -40,13 +40,6 @@ public class MenuJframe extends BaseFrame{
         // Create a JPanel to hold the button
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-        // Create a button and add it to the panel
-        JButton button = new JButton("Click me!");
-        button.setPreferredSize(new Dimension(100, 30));
-        button.setOpaque(true);
-        button.setBackground(Color.RED); // set to a different color to see if it appears
-        buttonPanel.add(button);
 
         // Add the button panel to the top of the frame
         add(buttonPanel, BorderLayout.NORTH);

@@ -32,18 +32,27 @@ public class Deck {
 			}
 		}
 	}
+
 	// Shuffle the cards in the deck
 	public void shuffle() {
 		Collections.shuffle(deck);
 	}
+
+	// get cards
+	public Card getCard(int i) {
+		return deck.get(i);
+	}
+
 	// draw the following card
-    public Card drawCard() {
-        return deck.remove(0);
-    }
-    // draw a specifically index card
-    public Card drawCard(int i) {
-        return deck.remove(i);
-    }
+	public Card drawCard() {
+		return deck.remove(0);
+	}
+
+	// draw a specifically index card
+	public Card drawCard(int i) {
+		return deck.remove(i);
+	}
+
 	// get Deck
 	public ArrayList<Card> getDeck() {
 		return deck;
