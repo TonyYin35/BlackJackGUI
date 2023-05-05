@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,9 +31,6 @@ public class GameJframe extends BaseFrame {
 	public boolean dealerWon;
 	public volatile boolean roundOver;
 	Deck deck;
-	private JPanel contentPane;
-	private JPanel gamePanel;
-	private Image backgroundImage;
 
 	public GameJframe() {
 		// Jframe stuff
@@ -53,19 +51,9 @@ public class GameJframe extends BaseFrame {
 		dealerWon = true;
 		roundOver = false;
 
-		JButton JbuttonHit;
-		JButton JbuttonStand;
-		JButton JbuttonDouble;
-
-		// Jbuttons
-		JbuttonHit = new JButton("HIT");
-		JbuttonHit.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		JbuttonStand = new JButton("STAND");
-		JbuttonStand.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		JbuttonDouble = new JButton("DOUBLE");
-		JbuttonDouble.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-
-		// create a JPanel for the background image
+		/* create a JPanel for the background image
+		 * 
+		 */
 		JPanel backgroundPanel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -83,20 +71,16 @@ public class GameJframe extends BaseFrame {
 
 		// add the background panel to the JFrame
 		add(backgroundPanel);
+		
+		// add the panel that display the cards
+		PlayingAreaPanel PlayingAreaPanel = new PlayingAreaPanel();
+		backgroundPanel.add(PlayingAreaPanel);
 
-		// set the bounds of the JButtons
-		JbuttonHit.setBounds(390, 550, 100, 50);
-		JbuttonStand.setBounds(520, 550, 100, 50);
-		JbuttonDouble.setBounds(650, 550, 100, 50);
-
-		// add the JButtons to the background panel
-		backgroundPanel.add(JbuttonHit);
-		backgroundPanel.add(JbuttonStand);
-		backgroundPanel.add(JbuttonDouble);
-
-		// game starts
-		gameStart();
-
+		/*
+		 * Below are the JButton, we have three buttons
+		 */
+		JButton JbuttonHit = new JButton("HIT");
+		JbuttonHit.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
 		JbuttonHit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +92,9 @@ public class GameJframe extends BaseFrame {
 				}
 			}
 		});
-
+		
+		JButton JbuttonStand = new JButton("STAND");
+		JbuttonStand.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
 		JbuttonStand.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -138,7 +124,9 @@ public class GameJframe extends BaseFrame {
 				}
 			}
 		});
-
+		
+		JButton JbuttonDouble = new JButton("DOUBLE");
+		JbuttonDouble.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
 		JbuttonDouble.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -151,14 +139,18 @@ public class GameJframe extends BaseFrame {
 				}
 			}
 		});
-		setVisible(true);
-	}
+		
+        // Add the buttons to your JFrame
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(JbuttonHit);
+        buttonsPanel.add(JbuttonStand);
+        buttonsPanel.add(JbuttonDouble);
+        add(buttonsPanel, BorderLayout.SOUTH);
 
-	@Override
-	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+		// game starts
+		gameStart();
+
+		setVisible(true);
 	}
 
 	public void gameStart() {
