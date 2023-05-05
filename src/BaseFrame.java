@@ -40,7 +40,5 @@ public class BaseFrame extends JFrame {
 		// Make it visible and dispose the menu frame
 		gameFrame.setVisible(true);
 		main.menuFrame.dispose();
-//        main.gameRefreshThread.start();
-//        main.gameCheckThread.start();
 	}
 }
