@@ -3,6 +3,7 @@
  * There are 52 cards in Black Jack game, we exclude 2 joker cards
  * Each card should have three properties: Suit, Rank, Number
  */
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -45,7 +46,7 @@ public class Card {
 	}
 
 	// we use this method to print cards
-	public void printCard() throws IOException {
+	public void printCard(Graphics2D g2, boolean dealerTurn, boolean faceDown, int cardNumber) throws IOException {
 		int width = 950;
 		int height = 392;
 		BufferedImage cardImg = ImageIO.read(new File("Images/cards.png"));
@@ -56,6 +57,17 @@ public class Card {
 			for (int j = 0; j < 13; j++) {
 				deck[i][j] = cardImg.getSubimage(j * width / 13, i * height / 4, width / 13, height / 4);
 			}
+		}
+		if (dealerTurn) {
+			y = 75;
+		} else {
+			y = 400;
+		}
+		x = 500 + 75 * cardNumber;
+		if (faceDown) {
+			g2.drawImage(cardBack, x, y, null);
+		} else {
+			g2.drawImage(deck[suit][rank], x, y, null);
 		}
 	}
 
