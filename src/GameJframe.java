@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -30,6 +29,7 @@ public class GameJframe extends BaseFrame {
 	public boolean faceDown;
 	public boolean dealerWon;
 	public volatile boolean roundOver;
+	public PlayingAreaPanel PlayingAreaPanel;
 	Deck deck;
 
 	public GameJframe() {
@@ -51,7 +51,8 @@ public class GameJframe extends BaseFrame {
 		dealerWon = true;
 		roundOver = false;
 
-		/* create a JPanel for the background image
+		/*
+		 * create a JPanel for the background image
 		 * 
 		 */
 		JPanel backgroundPanel = new JPanel() {
@@ -71,9 +72,9 @@ public class GameJframe extends BaseFrame {
 
 		// add the background panel to the JFrame
 		add(backgroundPanel);
-		
+
 		// add the panel that display the cards
-		PlayingAreaPanel PlayingAreaPanel = new PlayingAreaPanel();
+		PlayingAreaPanel = new PlayingAreaPanel();
 		backgroundPanel.add(PlayingAreaPanel);
 
 		/*
@@ -85,14 +86,26 @@ public class GameJframe extends BaseFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				playerCards.add(deck.drawCard());
+				try {
+					PlayingAreaPanel.updateHands(dealerCards, playerCards);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				checkCards(playerCards);
 				if (getSum(playerCards) < 17 && getSum(dealerCards) < 17) {
 					dealerCards.add(deck.drawCard());
+					try {
+						PlayingAreaPanel.updateHands(dealerCards, playerCards);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					checkCards(dealerCards);
 				}
 			}
 		});
-		
+
 		JButton JbuttonStand = new JButton("STAND");
 		JbuttonStand.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
 		JbuttonStand.addActionListener(new ActionListener() {
@@ -100,6 +113,12 @@ public class GameJframe extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				while (getSum(dealerCards) < 17) {
 					dealerCards.add(deck.drawCard());
+					try {
+						PlayingAreaPanel.updateHands(dealerCards, playerCards);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					checkCards(dealerCards);
 				}
 				if (getSum(dealerCards) > 21) {
@@ -124,7 +143,7 @@ public class GameJframe extends BaseFrame {
 				}
 			}
 		});
-		
+
 		JButton JbuttonDouble = new JButton("DOUBLE");
 		JbuttonDouble.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
 		JbuttonDouble.addActionListener(new ActionListener() {
@@ -132,20 +151,32 @@ public class GameJframe extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				playerCards.add(deck.drawCard());
 				playerCards.add(deck.drawCard());
+				try {
+					PlayingAreaPanel.updateHands(dealerCards, playerCards);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				checkCards(playerCards);
 				if (getSum(playerCards) < 17 && getSum(dealerCards) < 17) {
 					dealerCards.add(deck.drawCard());
+					try {
+						PlayingAreaPanel.updateHands(dealerCards, playerCards);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					checkCards(dealerCards);
 				}
 			}
 		});
-		
-        // Add the buttons to your JFrame
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.add(JbuttonHit);
-        buttonsPanel.add(JbuttonStand);
-        buttonsPanel.add(JbuttonDouble);
-        add(buttonsPanel, BorderLayout.SOUTH);
+
+		// Add the buttons to your JFrame
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.add(JbuttonHit);
+		buttonsPanel.add(JbuttonStand);
+		buttonsPanel.add(JbuttonDouble);
+		add(buttonsPanel, BorderLayout.SOUTH);
 
 		// game starts
 		gameStart();
@@ -153,6 +184,10 @@ public class GameJframe extends BaseFrame {
 		setVisible(true);
 	}
 
+	/*
+	 * Initial the game start, the game should start with both player and dealer
+	 * have two cards
+	 */
 	public void gameStart() {
 		// dealer get two cards
 		for (int i = 0; i < 2; i++) {
@@ -163,11 +198,12 @@ public class GameJframe extends BaseFrame {
 			playerCards.add(deck.drawCard(i));
 		}
 
-//	    cardComponent = new GameComponent(dealerCards, playerCards);
-//	    cardComponent.setBounds(0, 0, 1130, 665);
-//	    add(cardComponent);
-//	    setVisible(true);
-
+		try {
+			PlayingAreaPanel.updateHands(dealerCards, playerCards);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		checkCards(dealerCards);
 		checkCards(playerCards);
 
