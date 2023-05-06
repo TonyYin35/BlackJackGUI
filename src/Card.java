@@ -6,6 +6,8 @@
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 public class Card {
@@ -43,32 +45,6 @@ public class Card {
 	// get value method
 	public int getValue() {
 		return value;
-	}
-
-	// we use this method to print cards
-	public void printCard(Graphics2D g2, boolean dealerTurn, boolean faceDown, int cardNumber) throws IOException {
-		int width = 950;
-		int height = 392;
-		BufferedImage cardImg = ImageIO.read(new File("Images/cards.png"));
-		BufferedImage[][] deck = new BufferedImage[4][13];
-		BufferedImage cardBack = ImageIO.read(new File("Images/backSide.jpeg"));
-		// use double for loop crop the card images to the deck 2d array
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 13; j++) {
-				deck[i][j] = cardImg.getSubimage(j * width / 13, i * height / 4, width / 13, height / 4);
-			}
-		}
-		if (dealerTurn) {
-			y = 75;
-		} else {
-			y = 400;
-		}
-		x = 500 + 75 * cardNumber;
-		if (faceDown) {
-			g2.drawImage(cardBack, x, y, null);
-		} else {
-			g2.drawImage(deck[suit][rank], x, y, null);
-		}
 	}
 
 	// overwrite
