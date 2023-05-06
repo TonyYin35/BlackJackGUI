@@ -134,59 +134,55 @@ public class GameJframe extends BaseFrame {
 				if (!roundOver) {
 					if (getSum(dealerCards) > 21) {
 						roundOver = true;
+						// update cards
+						playerCardsValue = getSum(playerCards);
+						dealerCardsValue = getSum(dealerCards);
 						try {
 							PlayingAreaPanel.updateHands(dealerCards, playerCards);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						// update cards
-						playerCardsValue = getSum(playerCards);
-						dealerCardsValue = getSum(dealerCards);
-						PlayingAreaPanel.updateLabels();
 						JOptionPane.showMessageDialog(null, "Dealer busts! Player wins!");
 						rest();
 					} else if (getSum(dealerCards) >= getSum(playerCards) && getSum(dealerCards) <= 21) {
 						if (getSum(playerCards) > getSum(dealerCards)) {
 							roundOver = true;
+							// update cards
+							playerCardsValue = getSum(playerCards);
+							dealerCardsValue = getSum(dealerCards);
 							try {
 								PlayingAreaPanel.updateHands(dealerCards, playerCards);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							// update cards
-							playerCardsValue = getSum(playerCards);
-							dealerCardsValue = getSum(dealerCards);
-							PlayingAreaPanel.updateLabels();
+
 							JOptionPane.showMessageDialog(null, "Player wins with a better cards!");
 							rest();
 						} else if (getSum(playerCards) == getSum(dealerCards)) {
 							roundOver = true;
+							// update cards
+							playerCardsValue = getSum(playerCards);
+							dealerCardsValue = getSum(dealerCards);
 							try {
 								PlayingAreaPanel.updateHands(dealerCards, playerCards);
 							} catch (IOException e1) {
 								e1.printStackTrace();
 							}
-							// update cards
-							playerCardsValue = getSum(playerCards);
-							dealerCardsValue = getSum(dealerCards);
-							PlayingAreaPanel.updateLabels();
 							JOptionPane.showMessageDialog(null, "It's a tie!");
 							rest();
 						} else {
 							roundOver = true;
-
+							// update cards
+							playerCardsValue = getSum(playerCards);
+							dealerCardsValue = getSum(dealerCards);
 							try {
 								PlayingAreaPanel.updateHands(dealerCards, playerCards);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							// update cards
-							playerCardsValue = getSum(playerCards);
-							dealerCardsValue = getSum(dealerCards);
-							PlayingAreaPanel.updateLabels();
 							JOptionPane.showMessageDialog(null, "Dealer wins with a better cards!");
 							rest();
 						}
@@ -251,6 +247,8 @@ public class GameJframe extends BaseFrame {
 			playerCards.add(deck.drawCard(i));
 		}
 
+		playerCardsValue = getSum(playerCards);
+		dealerCardsValue = getSum(dealerCards);
 		try {
 			PlayingAreaPanel.updateHands(dealerCards, playerCards);
 		} catch (IOException e) {
@@ -270,32 +268,30 @@ public class GameJframe extends BaseFrame {
 			// if busted
 			if (getSum(cards) > 21) {
 				roundOver = true;
+				// update cards
+				playerCardsValue = getSum(playerCards);
+				dealerCardsValue = getSum(dealerCards);
 				try {
 					PlayingAreaPanel.updateHands(dealerCards, playerCards);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// update cards
-				playerCardsValue = getSum(playerCards);
-				dealerCardsValue = getSum(dealerCards);
-				PlayingAreaPanel.updateLabels();
 				JOptionPane.showMessageDialog(null, "Dealer bust! Player wins!");
 				rest();
 			}
 			// if it is blackJack
 			if (getSum(cards) == 21) {
 				roundOver = true;
-				PlayingAreaPanel.updateLabels();
+				// update cards
+				playerCardsValue = getSum(playerCards);
+				dealerCardsValue = getSum(dealerCards);
 				try {
 					PlayingAreaPanel.updateHands(dealerCards, playerCards);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// update cards
-				playerCardsValue = getSum(playerCards);
-				dealerCardsValue = getSum(dealerCards);
 				JOptionPane.showMessageDialog(null, "Dealer is BlackJack! Dealer wins!");
 				rest();
 			}
@@ -305,32 +301,30 @@ public class GameJframe extends BaseFrame {
 			// if busted
 			if (getSum(cards) > 21) {
 				roundOver = true;
+				// update cards
+				playerCardsValue = getSum(playerCards);
+				dealerCardsValue = getSum(dealerCards);
 				try {
 					PlayingAreaPanel.updateHands(dealerCards, playerCards);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// update cards
-				playerCardsValue = getSum(playerCards);
-				dealerCardsValue = getSum(dealerCards);
-				PlayingAreaPanel.updateLabels();
 				JOptionPane.showMessageDialog(null, "Player bust! Dealer wins!");
 				rest();
 			}
 			// if it is blackJack
 			if (getSum(cards) == 21) {
 				roundOver = true;
+				// update the card's sum
+				playerCardsValue = getSum(playerCards);
+				dealerCardsValue = getSum(dealerCards);
 				try {
 					PlayingAreaPanel.updateHands(dealerCards, playerCards);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// update the card's sum
-				playerCardsValue = getSum(playerCards);
-				dealerCardsValue = getSum(dealerCards);
-				PlayingAreaPanel.updateLabels();
 				JOptionPane.showMessageDialog(null, "Player is BlackJack! Player wins!");
 				rest();
 			}
