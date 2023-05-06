@@ -16,6 +16,7 @@ public class PlayingAreaPanel extends JComponent {
 	public PlayingAreaPanel() {
 		setBounds(0, 0, 1200, 800); // set the position (50, 50) and size (400, 400) of the panel
 		drawLabels();
+		updateLabels();
 	}
 
 	public void updateHands(ArrayList<Card> dealerHand, ArrayList<Card> playerHand) throws IOException {
@@ -103,23 +104,24 @@ public class PlayingAreaPanel extends JComponent {
 	}
 	
 	public void updateLabels() {
-		JLabel dealerLabel = null;
-		JLabel playerLabel = null;
 		int dealerCardsValue = GameJframe.dealerCardsValue;
 		int playerCardsValue = GameJframe.playerCardsValue;
 		if (GameJframe.roundOver) {
-			dealerLabel = new JLabel("Dealer's card value is : " + dealerCardsValue);
-			dealerLabel.setFont(new Font("Arial", Font.BOLD, 12));
-			dealerLabel.setForeground(Color.WHITE);
+			JLabel dealerLabelScore = new JLabel("Dealer's card value is : " + dealerCardsValue);
+			dealerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
+			dealerLabelScore.setForeground(Color.WHITE);
 			
-			playerLabel = new JLabel("Player's card value is : " + playerCardsValue);
-			playerLabel.setFont(new Font("Arial", Font.BOLD, 12));
-			playerLabel.setForeground(Color.WHITE);
+			JLabel playerLabelScore = new JLabel("Player's card value is : " + playerCardsValue);
+			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
+			playerLabelScore.setForeground(Color.WHITE);
+			
+			dealerLabelScore.setBounds(0, 0, 200, 100);
+			playerLabelScore.setBounds(0, 0, 200, 400);
+			add(dealerLabelScore);
+			add(playerLabelScore);
+			System.out.println(dealerCardsValue);
+			System.out.println(playerCardsValue);
 		}
-		dealerLabel.setBounds(0, 0, 200, 100);
-		playerLabel.setBounds(0, 0, 200, 400);
-		add(dealerLabel);
-		add(playerLabel);
-		setVisible(true);
+		repaint();
 	}
 }
