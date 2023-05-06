@@ -46,7 +46,7 @@ public class MenuJframe extends BaseFrame {
 
         // Create and add a welcome label with white text
         JLabel welcomeLabel = new JLabel("Welcome to Blackjack!");
-        welcomeLabel.setFont(new Font("Bernard MT Condensed", Font.BOLD, 36));
+        welcomeLabel.setFont(new Font("Bernard MT Condensed", Font.PLAIN, 36));
         welcomeLabel.setForeground(Color.YELLOW);
         welcomeLabel.setBounds(frameX / 3, frameY / 4 - 20, frameX / 3, frameY / 16); // 400, 200, 400, 50
         JLabel noticeLabel = new JLabel("Click menu on the left top to start!");
