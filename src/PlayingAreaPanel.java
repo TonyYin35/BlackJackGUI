@@ -12,7 +12,7 @@ import javax.swing.*;
 public class PlayingAreaPanel extends JComponent {
 	private ArrayList<Card> dealerHand;
 	private ArrayList<Card> playerHand;
-
+	
 	public PlayingAreaPanel() {
 		setBounds(0, 0, 1200, 800); // set the position (50, 50) and size (400, 400) of the panel
 		drawLabels();
@@ -28,24 +28,30 @@ public class PlayingAreaPanel extends JComponent {
 		// Add the dealer's card labels
 		BufferedImage[] dealerImg = getCardImage(dealerHand);
 		for (int i = 0; i < dealerImg.length; i++) {
-			if (i == 1) {
-				BufferedImage backSide = ImageIO.read(new File("Images/backSide.jpeg"));
-				Image scaledBackSide = backSide.getScaledInstance(72, 96, Image.SCALE_SMOOTH);
-				ImageIcon backSideIcon = new ImageIcon(scaledBackSide);
-				JLabel dealerCardLabel = new JLabel(backSideIcon);
-				dealerCardLabel.setBounds(200 + i * 100, 50, 72, 96);
-				add(dealerCardLabel);
-			} else {
+			if (GameJframe.roundOver) {
 				JLabel dealerCardLabel = new JLabel(new ImageIcon(dealerImg[i]));
 				dealerCardLabel.setBounds(200 + i * 100, 50, 72, 96);
 				add(dealerCardLabel);
+			} else {
+				if (i == 1) {
+					BufferedImage backSide = ImageIO.read(new File("Images/backSide.jpeg"));
+					Image scaledBackSide = backSide.getScaledInstance(72, 96, Image.SCALE_SMOOTH);
+					ImageIcon backSideIcon = new ImageIcon(scaledBackSide);
+					JLabel dealerCardLabel = new JLabel(backSideIcon);
+					dealerCardLabel.setBounds(200 + i * 100, 50, 72, 96);
+					add(dealerCardLabel);
+				} else {
+					JLabel dealerCardLabel = new JLabel(new ImageIcon(dealerImg[i]));
+					dealerCardLabel.setBounds(200 + i * 100, 50, 72, 96);
+					add(dealerCardLabel);
+				}
 			}
 		}
 		// Add the player's card labels
 		BufferedImage[] playerImg = getCardImage(playerHand);
 		for (int i = 0; i < playerImg.length; i++) {
 			JLabel playerCardLabel = new JLabel(new ImageIcon(playerImg[i]));
-			playerCardLabel.setBounds(200 + i * 100, 2, 72, 96);
+			playerCardLabel.setBounds(200 + i * 100, 200, 72, 96);
 			add(playerCardLabel);
 		}
 
@@ -79,11 +85,12 @@ public class PlayingAreaPanel extends JComponent {
 	}
 
 	public void drawLabels() {
+		// Labels
 		JLabel dealerLabel = new JLabel("Dealer's card: ");
 		dealerLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		dealerLabel.setForeground(Color.WHITE);
 
-		dealerLabel.setBounds(0, 0, 200, 50);
+		dealerLabel.setBounds(0, 0, 200, 50);		
 
 		JLabel playerLabel = new JLabel("Player's card: ");
 		playerLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -93,5 +100,26 @@ public class PlayingAreaPanel extends JComponent {
 
 		add(dealerLabel);
 		add(playerLabel);
+	}
+	
+	public void updateLabels() {
+		JLabel dealerLabel = null;
+		JLabel playerLabel = null;
+		int dealerCardsValue = GameJframe.dealerCardsValue;
+		int playerCardsValue = GameJframe.playerCardsValue;
+		if (GameJframe.roundOver) {
+			dealerLabel = new JLabel("Dealer's card value is : " + dealerCardsValue);
+			dealerLabel.setFont(new Font("Arial", Font.BOLD, 12));
+			dealerLabel.setForeground(Color.WHITE);
+			
+			playerLabel = new JLabel("Player's card value is : " + playerCardsValue);
+			playerLabel.setFont(new Font("Arial", Font.BOLD, 12));
+			playerLabel.setForeground(Color.WHITE);
+		}
+		dealerLabel.setBounds(0, 0, 200, 100);
+		playerLabel.setBounds(0, 0, 200, 400);
+		add(dealerLabel);
+		add(playerLabel);
+		setVisible(true);
 	}
 }
