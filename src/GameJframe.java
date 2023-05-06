@@ -16,8 +16,8 @@ import javax.swing.SwingUtilities;
 
 public class GameJframe extends BaseFrame {
 
-	private int frameX = 1200;
-	private int frameY = 800;
+	private int frameX = 1000;
+	private int frameY = 600;
 	ArrayList<Card> dealerCards;
 	ArrayList<Card> playerCards;
 	public boolean faceDown;
@@ -38,7 +38,7 @@ public class GameJframe extends BaseFrame {
 		setSize(frameX, frameY);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
 
 		// set up the deck
 		deck = new Deck();
