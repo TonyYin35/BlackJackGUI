@@ -58,6 +58,7 @@ public class PlayingAreaPanel extends JComponent {
 
 		// Draw Labels
 		drawLabels();
+		updateLabels();
 
 		// Repaint the panel to show the new card labels
 		repaint();
@@ -119,9 +120,19 @@ public class PlayingAreaPanel extends JComponent {
 			playerLabelScore.setBounds(0, 0, 200, 400);
 			add(dealerLabelScore);
 			add(playerLabelScore);
-			System.out.println(dealerCardsValue);
-			System.out.println(playerCardsValue);
+		} else {
+			JLabel dealerLabelScore = new JLabel("Dealer's card value is : ??? ");
+			dealerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
+			dealerLabelScore.setForeground(Color.WHITE);
+			
+			JLabel playerLabelScore = new JLabel("Player's card value is : " + playerCardsValue);
+			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
+			playerLabelScore.setForeground(Color.WHITE);
+			
+			dealerLabelScore.setBounds(0, 0, 200, 100);
+			playerLabelScore.setBounds(0, 0, 200, 400);
+			add(dealerLabelScore);
+			add(playerLabelScore);
 		}
-		repaint();
 	}
 }
