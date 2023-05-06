@@ -1,4 +1,9 @@
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class BaseFrame extends JFrame {
 
@@ -33,12 +38,14 @@ public class BaseFrame extends JFrame {
 		setJMenuBar(menuBar);
 	}
 
-	public static void startGame() {
-		// Create the game frame
-		GameJframe gameFrame = new GameJframe();
+    public static void startGame() {
+        SwingUtilities.invokeLater(() -> {
+            // Create the game frame
+            GameJframe gameFrame = new GameJframe();
 
-		// Make it visible and dispose the menu frame
-		gameFrame.setVisible(true);
-		main.menuFrame.dispose();
-	}
+            // Make it visible and dispose the menu frame
+            gameFrame.setVisible(true);
+            main.menuFrame.dispose();
+        });
+    }
 }

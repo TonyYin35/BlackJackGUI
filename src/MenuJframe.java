@@ -15,12 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class MenuJframe extends BaseFrame{
-	
-	private int frameX = 1200;
-	private int frameY = 800;
-	
-	public MenuJframe() {
+public class MenuJframe extends BaseFrame {
+
+    private int frameX = 1200;
+    private int frameY = 800;
+
+    public MenuJframe() {
         setTitle("Menu");
         setSize(frameX, frameY);
         setLocationRelativeTo(null);
@@ -36,7 +36,7 @@ public class MenuJframe extends BaseFrame{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         // Create a JPanel to hold the button
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -46,14 +46,14 @@ public class MenuJframe extends BaseFrame{
 
         // Create and add a welcome label with white text
         JLabel welcomeLabel = new JLabel("Welcome to Blackjack!");
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        welcomeLabel.setForeground(Color.WHITE);
-        welcomeLabel.setBounds(frameX/3, frameY/4, frameX/3, frameY/16); // 400, 200, 400, 50
+        welcomeLabel.setFont(new Font("Bernard MT Condensed", Font.PLAIN, 36));
+        welcomeLabel.setForeground(Color.YELLOW);
+        welcomeLabel.setBounds(frameX / 3, frameY / 4 - 20, frameX / 3, frameY / 16); // 400, 200, 400, 50
         JLabel noticeLabel = new JLabel("Click menu on the left top to start!");
-        noticeLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        noticeLabel.setForeground(Color.WHITE);
-        noticeLabel.setBounds(frameX/3, frameY/3, frameX/3, frameY/16); // 400, 200, 400, 50
-        
+        noticeLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        noticeLabel.setForeground(Color.YELLOW);
+        noticeLabel.setBounds(frameX / 4, frameY / 3 + 200, frameX / 2, frameY / 16); // 400, 200, 400, 50
+
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         noticeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(welcomeLabel, BorderLayout.CENTER);
