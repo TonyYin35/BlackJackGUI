@@ -10,9 +10,6 @@ public class main {
 	// one is the game frame
 	public static JFrame menuFrame = new JFrame();
 	public static JFrame gameFrame = new JFrame();
-	// We record score
-	private static int dealerScore = 0;
-	private static int playerScore = 0;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -12,7 +12,7 @@ import javax.swing.*;
 public class PlayingAreaPanel extends JComponent {
 	private ArrayList<Card> dealerHand;
 	private ArrayList<Card> playerHand;
-	
+
 	public PlayingAreaPanel() {
 		setBounds(0, 0, 1200, 800); // set the position (50, 50) and size (400, 400) of the panel
 		drawLabels();
@@ -92,7 +92,7 @@ public class PlayingAreaPanel extends JComponent {
 		dealerLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		dealerLabel.setForeground(Color.WHITE);
 
-		dealerLabel.setBounds(0, 0, 200, 50);		
+		dealerLabel.setBounds(0, 0, 200, 50);
 
 		JLabel playerLabel = new JLabel("Player's card: ");
 		playerLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -103,7 +103,7 @@ public class PlayingAreaPanel extends JComponent {
 		add(dealerLabel);
 		add(playerLabel);
 	}
-	
+
 	public void updateLabels() {
 		int dealerCardsValue = GameJframe.dealerCardsValue;
 		int playerCardsValue = GameJframe.playerCardsValue;
@@ -111,11 +111,11 @@ public class PlayingAreaPanel extends JComponent {
 			JLabel dealerLabelScore = new JLabel("Dealer's card value is : " + dealerCardsValue);
 			dealerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			dealerLabelScore.setForeground(Color.WHITE);
-			
+
 			JLabel playerLabelScore = new JLabel("Player's card value is : " + playerCardsValue);
 			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			playerLabelScore.setForeground(Color.WHITE);
-			
+
 			dealerLabelScore.setBounds(0, 0, 200, 100);
 			playerLabelScore.setBounds(0, 0, 200, 400);
 			add(dealerLabelScore);
@@ -124,15 +124,28 @@ public class PlayingAreaPanel extends JComponent {
 			JLabel dealerLabelScore = new JLabel("Dealer's card value is : ??? ");
 			dealerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			dealerLabelScore.setForeground(Color.WHITE);
-			
+
 			JLabel playerLabelScore = new JLabel("Player's card value is : " + playerCardsValue);
 			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			playerLabelScore.setForeground(Color.WHITE);
-			
+
 			dealerLabelScore.setBounds(0, 0, 200, 100);
 			playerLabelScore.setBounds(0, 0, 200, 400);
 			add(dealerLabelScore);
 			add(playerLabelScore);
 		}
+		// update total wins score label
+		JLabel dealerScoreLabel = new JLabel("Round won by the dealer: " + GameJframe.dealerScore);
+		dealerScoreLabel.setFont(new Font("Arial", Font.BOLD, 12));
+		dealerScoreLabel.setForeground(Color.WHITE);
+
+		JLabel playerScoreLabel = new JLabel("Round won by the player: " + GameJframe.playerScore);
+		playerScoreLabel.setFont(new Font("Arial", Font.BOLD, 12));
+		playerScoreLabel.setForeground(Color.WHITE);
+
+		dealerScoreLabel.setBounds(0, 0, 200, 150);
+		playerScoreLabel.setBounds(0, 0, 200, 450);
+		add(dealerScoreLabel);
+		add(playerScoreLabel);
 	}
 }

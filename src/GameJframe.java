@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,14 +20,17 @@ public class GameJframe extends BaseFrame {
 
 	private int frameX = 1200;
 	private int frameY = 800;
-	ArrayList<Card> dealerCards;
-	ArrayList<Card> playerCards;
 	public boolean faceDown;
 	public boolean dealerWon;
 	public volatile static boolean roundOver;
 	public PlayingAreaPanel PlayingAreaPanel;
 	public static int playerCardsValue;
 	public static int dealerCardsValue;
+	// We record score
+	public static int dealerScore = 0;
+	public static int playerScore = 0;
+	ArrayList<Card> dealerCards;
+	ArrayList<Card> playerCards;
 	Deck deck;
 	JPanel buttonsPanel;
 	JButton JbuttonHit;
@@ -93,6 +98,15 @@ public class GameJframe extends BaseFrame {
 		JbuttonHit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// import sounds file
+				try {
+					File soundFile = new File("Wav/buttonClick.wav");
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(soundFile));
+					clip.start();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				playerCards.add(deck.drawCard());
 				// update the card's sum
 				playerCardsValue = getSum(playerCards);
@@ -112,6 +126,15 @@ public class GameJframe extends BaseFrame {
 		JbuttonStand.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// import sounds file
+				try {
+					File soundFile = new File("Wav/buttonClick.wav");
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(soundFile));
+					clip.start();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				// If dealer's card is less than 17, we will let it hit until bigger than 17
 				if (getSum(dealerCards) < 17) {
 					while (getSum(dealerCards) < 17) {
@@ -145,6 +168,7 @@ public class GameJframe extends BaseFrame {
 							e1.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(null, "Player wins with a better cards!");
+						playerScore++;
 						rest();
 					} else if (getSum(dealerCards) == getSum(playerCards)) {
 						roundOver = true;
@@ -169,6 +193,7 @@ public class GameJframe extends BaseFrame {
 							e1.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(null, "Dealer wins with a better cards!");
+						dealerScore++;
 						rest();
 					}
 				}
@@ -180,6 +205,15 @@ public class GameJframe extends BaseFrame {
 		JbuttonDouble.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// import sounds file
+				try {
+					File soundFile = new File("Wav/buttonClick.wav");
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(soundFile));
+					clip.start();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				playerCards.add(deck.drawCard());
 				playerCards.add(deck.drawCard());
 				// update the card's sum
@@ -254,47 +288,51 @@ public class GameJframe extends BaseFrame {
 	}
 
 	public void checkCards(ArrayList<Card> cards) {
-	    // check if the round is already over
-	    if (roundOver) {
-	        return;
-	    }
+		// check if the round is already over
+		if (roundOver) {
+			return;
+		}
 
-	    int cardsSum = getSum(cards);
-	    // check for blackjack
-	    boolean isBlackjack = cardsSum == 21 && cards.size() == 2;
+		int cardsSum = getSum(cards);
+		// check for blackjack
+		boolean isBlackjack = cardsSum == 21 && cards.size() == 2;
 
-	    // check for bust
-	    if (cardsSum > 21) {
-	        roundOver = true;
-	        playerCardsValue = getSum(playerCards);
-	        dealerCardsValue = getSum(dealerCards);
-	        try {
-	            PlayingAreaPanel.updateHands(dealerCards, playerCards);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        if (cards.equals(dealerCards)) {
-	            JOptionPane.showMessageDialog(null, "Dealer bust! Player wins!");
-	        } else {
-	            JOptionPane.showMessageDialog(null, "Player bust! Dealer wins!");
-	        }
-	        rest();
-	    } else if (isBlackjack) {
-	        roundOver = true;
-	        playerCardsValue = getSum(playerCards);
-	        dealerCardsValue = getSum(dealerCards);
-	        try {
-	            PlayingAreaPanel.updateHands(dealerCards, playerCards);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        if (cards.equals(dealerCards)) {
-	            JOptionPane.showMessageDialog(null, "Dealer is Blackjack! Dealer wins!");
-	        } else {
-	            JOptionPane.showMessageDialog(null, "Player is Blackjack! Player wins!");
-	        }
-	        rest();
-	    }
+		// check for bust
+		if (cardsSum > 21) {
+			roundOver = true;
+			playerCardsValue = getSum(playerCards);
+			dealerCardsValue = getSum(dealerCards);
+			try {
+				PlayingAreaPanel.updateHands(dealerCards, playerCards);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (cards.equals(dealerCards)) {
+				JOptionPane.showMessageDialog(null, "Dealer bust! Player wins!");
+				playerScore++;
+			} else {
+				JOptionPane.showMessageDialog(null, "Player bust! Dealer wins!");
+				dealerScore++;
+			}
+			rest();
+		} else if (isBlackjack) {
+			roundOver = true;
+			playerCardsValue = getSum(playerCards);
+			dealerCardsValue = getSum(dealerCards);
+			try {
+				PlayingAreaPanel.updateHands(dealerCards, playerCards);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (cards.equals(dealerCards)) {
+				JOptionPane.showMessageDialog(null, "Dealer is Blackjack! Dealer wins!");
+				dealerScore++;
+			} else {
+				JOptionPane.showMessageDialog(null, "Player is Blackjack! Player wins!");
+				playerScore++;
+			}
+			rest();
+		}
 	}
 
 	public static int getSum(ArrayList<Card> cards) {
