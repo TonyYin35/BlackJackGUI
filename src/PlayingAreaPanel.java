@@ -105,14 +105,12 @@ public class PlayingAreaPanel extends JComponent {
 	}
 
 	public void updateLabels() {
-		int dealerCardsValue = GameJframe.dealerCardsValue;
-		int playerCardsValue = GameJframe.playerCardsValue;
 		if (GameJframe.roundOver) {
-			JLabel dealerLabelScore = new JLabel("Dealer's card value is : " + dealerCardsValue);
+			JLabel dealerLabelScore = new JLabel("Dealer's card value is : " + GameJframe.dealerCardsValue);
 			dealerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			dealerLabelScore.setForeground(Color.WHITE);
 
-			JLabel playerLabelScore = new JLabel("Player's card value is : " + playerCardsValue);
+			JLabel playerLabelScore = new JLabel("Player's card value is : " + GameJframe.playerCardsValue);
 			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			playerLabelScore.setForeground(Color.WHITE);
 
@@ -125,7 +123,7 @@ public class PlayingAreaPanel extends JComponent {
 			dealerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			dealerLabelScore.setForeground(Color.WHITE);
 
-			JLabel playerLabelScore = new JLabel("Player's card value is : " + playerCardsValue);
+			JLabel playerLabelScore = new JLabel("Player's card value is : " + GameJframe.playerCardsValue);
 			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			playerLabelScore.setForeground(Color.WHITE);
 

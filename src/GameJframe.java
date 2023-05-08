@@ -162,13 +162,21 @@ public class GameJframe extends BaseFrame {
 						// update the card's sum
 						playerCardsValue = getSum(playerCards);
 						dealerCardsValue = getSum(dealerCards);
+						playerScore++;
 						try {
 							PlayingAreaPanel.updateHands(dealerCards, playerCards);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
+						try {
+							File soundFile = new File("Wav/Win.wav");
+							Clip clip = AudioSystem.getClip();
+							clip.open(AudioSystem.getAudioInputStream(soundFile));
+							clip.start();
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
 						JOptionPane.showMessageDialog(null, "Player wins with a better cards!");
-						playerScore++;
 						rest();
 					} else if (getSum(dealerCards) == getSum(playerCards)) {
 						roundOver = true;
@@ -180,6 +188,14 @@ public class GameJframe extends BaseFrame {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
+						try {
+							File soundFile = new File("Wav/Tie.wav");
+							Clip clip = AudioSystem.getClip();
+							clip.open(AudioSystem.getAudioInputStream(soundFile));
+							clip.start();
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
 						JOptionPane.showMessageDialog(null, "It's a tie!");
 						rest();
 					} else {
@@ -187,20 +203,28 @@ public class GameJframe extends BaseFrame {
 						// update the card's sum
 						playerCardsValue = getSum(playerCards);
 						dealerCardsValue = getSum(dealerCards);
+						dealerScore++;
 						try {
 							PlayingAreaPanel.updateHands(dealerCards, playerCards);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
+						try {
+							File soundFile = new File("Wav/Lose.wav");
+							Clip clip = AudioSystem.getClip();
+							clip.open(AudioSystem.getAudioInputStream(soundFile));
+							clip.start();
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
 						JOptionPane.showMessageDialog(null, "Dealer wins with a better cards!");
-						dealerScore++;
 						rest();
 					}
 				}
 			}
 		});
 
-		JbuttonDouble = new JButton("DOUBLE");
+		JbuttonDouble = new JButton("Draw two cards");
 		JbuttonDouble.setFont(new Font("Arial", Font.BOLD, 16));
 		JbuttonDouble.addActionListener(new ActionListener() {
 			@Override
@@ -269,7 +293,6 @@ public class GameJframe extends BaseFrame {
 		for (int i = 2; i < 4; i++) {
 			playerCards.add(deck.drawCard(i));
 		}
-
 		playerCardsValue = getSum(playerCards);
 		dealerCardsValue = getSum(dealerCards);
 		try {
@@ -302,34 +325,72 @@ public class GameJframe extends BaseFrame {
 			roundOver = true;
 			playerCardsValue = getSum(playerCards);
 			dealerCardsValue = getSum(dealerCards);
+			if (cards.equals(dealerCards)) {
+				playerScore++;
+			} else {
+				dealerScore++;
+			}
 			try {
 				PlayingAreaPanel.updateHands(dealerCards, playerCards);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			if (cards.equals(dealerCards)) {
+				try {
+					File soundFile = new File("Wav/Win.wav");
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(soundFile));
+					clip.start();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "Dealer bust! Player wins!");
-				playerScore++;
 			} else {
+				try {
+					File soundFile = new File("Wav/Lose.wav");
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(soundFile));
+					clip.start();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "Player bust! Dealer wins!");
-				dealerScore++;
 			}
 			rest();
 		} else if (isBlackjack) {
 			roundOver = true;
 			playerCardsValue = getSum(playerCards);
 			dealerCardsValue = getSum(dealerCards);
+			if (cards.equals(dealerCards)) {
+				dealerScore++;
+			} else {
+				playerScore++;
+			}
 			try {
 				PlayingAreaPanel.updateHands(dealerCards, playerCards);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			if (cards.equals(dealerCards)) {
+				try {
+					File soundFile = new File("Wav/Lose.wav");
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(soundFile));
+					clip.start();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "Dealer is Blackjack! Dealer wins!");
-				dealerScore++;
 			} else {
+				try {
+					File soundFile = new File("Wav/Win.wav");
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(soundFile));
+					clip.start();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "Player is Blackjack! Player wins!");
-				playerScore++;
 			}
 			rest();
 		}
