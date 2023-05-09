@@ -10,6 +10,8 @@ public class main {
 	// one is the game frame
 	public static JFrame menuFrame = new JFrame();
 	public static JFrame gameFrame = new JFrame();
+	public static int frameX = 1200;
+	public static int frameY = 800;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -20,5 +22,4 @@ public class main {
 		menuFrame = new MenuJframe();
 		menuFrame.setVisible(true);
 	}
-	
 }

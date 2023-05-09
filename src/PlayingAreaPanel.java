@@ -4,25 +4,23 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class PlayingAreaPanel extends JComponent {
-	private ArrayList<Card> dealerHand;
-	private ArrayList<Card> playerHand;
 
 	public PlayingAreaPanel() {
-		setBounds(0, 0, 1200, 800); // set the position (50, 50) and size (400, 400) of the panel
+		setBounds(0, 0, main.frameX, main.frameY); // set the position (50, 50) and size (400, 400) of the panel
 		drawLabels();
 		updateLabels();
+		timeLabel();
 	}
 
 	public void updateHands(ArrayList<Card> dealerHand, ArrayList<Card> playerHand) throws IOException {
-		this.dealerHand = dealerHand;
-		this.playerHand = playerHand;
-
 		// Remove all existing card labels from the panel
 		removeAll();
 
@@ -59,6 +57,7 @@ public class PlayingAreaPanel extends JComponent {
 		// Draw Labels
 		drawLabels();
 		updateLabels();
+		timeLabel();
 
 		// Repaint the panel to show the new card labels
 		repaint();
@@ -86,6 +85,7 @@ public class PlayingAreaPanel extends JComponent {
 		return result;
 	}
 
+	// draw the label to show which card is for dealer and which for player
 	public void drawLabels() {
 		// Labels
 		JLabel dealerLabel = new JLabel("Dealer's card: ");
@@ -104,6 +104,7 @@ public class PlayingAreaPanel extends JComponent {
 		add(playerLabel);
 	}
 
+	// this method will update player and dealer score and hand value label
 	public void updateLabels() {
 		if (GameJframe.roundOver) {
 			JLabel dealerLabelScore = new JLabel("Dealer's card value is : " + GameJframe.dealerCardsValue);
@@ -114,8 +115,8 @@ public class PlayingAreaPanel extends JComponent {
 			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			playerLabelScore.setForeground(Color.WHITE);
 
-			dealerLabelScore.setBounds(0, 0, 200, 100);
-			playerLabelScore.setBounds(0, 0, 200, 400);
+			dealerLabelScore.setBounds(0, 0, 200, 150);
+			playerLabelScore.setBounds(0, 0, 200, 450);
 			add(dealerLabelScore);
 			add(playerLabelScore);
 		} else {
@@ -127,8 +128,8 @@ public class PlayingAreaPanel extends JComponent {
 			playerLabelScore.setFont(new Font("Arial", Font.BOLD, 12));
 			playerLabelScore.setForeground(Color.WHITE);
 
-			dealerLabelScore.setBounds(0, 0, 200, 100);
-			playerLabelScore.setBounds(0, 0, 200, 400);
+			dealerLabelScore.setBounds(0, 0, 200, 150);
+			playerLabelScore.setBounds(0, 0, 200, 450);
 			add(dealerLabelScore);
 			add(playerLabelScore);
 		}
@@ -141,9 +142,32 @@ public class PlayingAreaPanel extends JComponent {
 		playerScoreLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		playerScoreLabel.setForeground(Color.WHITE);
 
-		dealerScoreLabel.setBounds(0, 0, 200, 150);
-		playerScoreLabel.setBounds(0, 0, 200, 450);
+		dealerScoreLabel.setBounds(0, 0, 200, 100);
+		playerScoreLabel.setBounds(0, 0, 200, 400);
 		add(dealerScoreLabel);
 		add(playerScoreLabel);
 	}
+	
+	// this label will show the current time
+    public void timeLabel() {
+    	JLabel timeLabel = new JLabel(getCurrentTime());
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        timeLabel.setForeground(Color.WHITE);
+        timeLabel.setBounds(1030, 460, 400, 450);
+        add(timeLabel);
+
+        Timer timer = new Timer(1000, e -> {
+            timeLabel.setText(getCurrentTime());
+        });
+        timer.start();
+
+        setVisible(true);
+    }
+
+    // get current time
+    private String getCurrentTime() {
+        Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        return formatter.format(now);
+    }
 }

@@ -14,48 +14,48 @@ import javax.swing.SwingConstants;
 
 public class MenuJframe extends BaseFrame {
 
-    private int frameX = 1200;
-    private int frameY = 800;
+	private int frameX = main.frameX;
+	private int frameY = main.frameY;
 
-    public MenuJframe() {
-        setTitle("Menu");
-        setSize(frameX, frameY);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+	public MenuJframe() {
+		setTitle("Menu");
+		setSize(frameX, frameY);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 
-        // Load the background image
-        try {
-            Image image = ImageIO.read(new File("Images/background1.png"));
-            Image scaledImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
-            JLabel background = new JLabel(new ImageIcon(scaledImage));
-            setContentPane(background);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		// Load the background image
+		try {
+			Image image = ImageIO.read(new File("Images/background1.png"));
+			Image scaledImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+			JLabel background = new JLabel(new ImageIcon(scaledImage));
+			setContentPane(background);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        // Create a JPanel to hold the button
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		// Create a JPanel to hold the button
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        // Add the button panel to the top of the frame
-        add(buttonPanel, BorderLayout.NORTH);
+		// Add the button panel to the top of the frame
+		add(buttonPanel, BorderLayout.NORTH);
 
-        // Create and add a welcome label with white text
-        JLabel welcomeLabel = new JLabel("Welcome to Blackjack!");
-        welcomeLabel.setFont(new Font("Bernard MT Condensed", Font.PLAIN, 36));
-        welcomeLabel.setForeground(Color.YELLOW);
-        welcomeLabel.setBounds(frameX / 3, frameY / 4 - 20, frameX / 3, frameY / 16); // 400, 200, 400, 50
-        JLabel noticeLabel = new JLabel("Click menu on the left top to start!");
-        noticeLabel.setFont(new Font("Arial", Font.BOLD, 28));
-        noticeLabel.setForeground(Color.YELLOW);
-        noticeLabel.setBounds(frameX / 4, frameY / 3 + 200, frameX / 2, frameY / 16); // 400, 200, 400, 50
+		// Create and add a welcome label with white text
+		JLabel welcomeLabel = new JLabel("Welcome to Blackjack!");
+		welcomeLabel.setFont(new Font("Bernard MT Condensed", Font.PLAIN, 36));
+		welcomeLabel.setForeground(Color.YELLOW);
+		welcomeLabel.setBounds(frameX / 3, frameY / 4 - 20, frameX / 3, frameY / 16); // 400, 200, 400, 50
+		JLabel noticeLabel = new JLabel("Click menu on the left top to start!");
+		noticeLabel.setFont(new Font("Arial", Font.BOLD, 28));
+		noticeLabel.setForeground(Color.YELLOW);
+		noticeLabel.setBounds(frameX / 4, frameY / 3 + 200, frameX / 2, frameY / 16); // 400, 200, 400, 50
 
-        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        noticeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(welcomeLabel, BorderLayout.CENTER);
-        add(noticeLabel, BorderLayout.CENTER);
+		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		noticeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		add(welcomeLabel, BorderLayout.CENTER);
+		add(noticeLabel, BorderLayout.CENTER);
 
-        setVisible(true);
-    }
+		setVisible(true);
+	}
 }

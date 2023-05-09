@@ -12,17 +12,20 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class GameJframe extends BaseFrame {
 
-	private int frameX = 1200;
-	private int frameY = 800;
+	private int frameX = main.frameX;
+	private int frameY = main.frameY;
 	public boolean faceDown;
 	public boolean dealerWon;
-	public volatile static boolean roundOver;
+	public static boolean roundOver;
 	public PlayingAreaPanel PlayingAreaPanel;
 	public static int playerCardsValue;
 	public static int dealerCardsValue;
@@ -38,6 +41,8 @@ public class GameJframe extends BaseFrame {
 	JButton JbuttonDouble;
 
 	public GameJframe() {
+		// set up the menu
+		createMenu();
 		// Jframe stuff
 		setTitle("Blackjack");
 		setSize(frameX, frameY);
@@ -224,7 +229,7 @@ public class GameJframe extends BaseFrame {
 			}
 		});
 
-		JbuttonDouble = new JButton("Draw two cards");
+		JbuttonDouble = new JButton("DRAW TWO CARDS");
 		JbuttonDouble.setFont(new Font("Arial", Font.BOLD, 16));
 		JbuttonDouble.addActionListener(new ActionListener() {
 			@Override
@@ -276,9 +281,34 @@ public class GameJframe extends BaseFrame {
 
 		// game starts
 		gameStart();
-
 		setVisible(true);
 	}
+	
+	/*
+	 * This method will not have a "start a new game" choice, player should use reset button to start a new round
+	 */
+    public void createMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Menu");
+        JMenuItem helpItem = new JMenuItem("Help");
+        JMenuItem exitItem = new JMenuItem("Exit");
+
+        helpItem.addActionListener((e) -> JOptionPane.showMessageDialog(this,
+                "The goal of blackjack is to have a hand value of 21 or as close to 21 as possible without going over (busting).\n"
+                        + "Each player is dealt two cards face up, while the dealer receives one card face up and one card face down.\n"
+                        + "Players can choose to \"hit\" and receive another card, or \"stand\" and keep their current hand value.\n"
+                        + "Players can continue to hit until they choose to stand or their hand value exceeds 21.\n"
+                        + "Once all players have completed their turns, the dealer reveals their face-down card and hits until their hand value is 17 or higher.\n"
+                        + "If the dealer busts, all remaining players win. Otherwise, the dealer compares their hand value to each \n"
+                        + "player's hand value and pays out accordingly (usually 1:1 for a win, and nothing for a loss or tie).\n",
+                "QUICK&EASY BLACKJACK HELP", JOptionPane.INFORMATION_MESSAGE));
+
+        exitItem.addActionListener((e) -> System.exit(0));
+        menu.add(helpItem);
+        menu.add(exitItem);
+        menuBar.add(menu);
+        setJMenuBar(menuBar);
+    }
 
 	/*
 	 * Initial the game start, the game should start with both player and dealer
@@ -310,6 +340,9 @@ public class GameJframe extends BaseFrame {
 		});
 	}
 
+	/*
+	 * checkCards method will do the checking if there is a bust or blackJack
+	 */
 	public void checkCards(ArrayList<Card> cards) {
 		// check if the round is already over
 		if (roundOver) {
@@ -416,12 +449,14 @@ public class GameJframe extends BaseFrame {
 		return sum;
 	}
 
+	// disable the buttons
 	public void buttonOff() {
 		JbuttonHit.setEnabled(false);
 		JbuttonStand.setEnabled(false);
 		JbuttonDouble.setEnabled(false);
 	}
 
+	// reset the properties
 	public void reset() {
 		dealerCards = new ArrayList<Card>();
 		playerCards = new ArrayList<Card>();
@@ -430,10 +465,11 @@ public class GameJframe extends BaseFrame {
 		dealerCardsValue = 0;
 	}
 
+	// rest for 1 second
 	public void rest() {
 		buttonOff();
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
 	}

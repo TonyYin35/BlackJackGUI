@@ -15,8 +15,6 @@ public class Card {
 	private int suit; // four suits: clubs, diamonds, hearts, and spades
 	private int rank; // 12 ranks: Ace, 2, 3 ... 10, Jack, Queen, King;
 	private int value; // The value of the card in black jack
-	private int x;
-	private int y;
 
 	// default constructor
 	public Card() {

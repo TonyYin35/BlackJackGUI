@@ -57,22 +57,4 @@ public class Deck {
 	public ArrayList<Card> getDeck() {
 		return deck;
 	}
-
-//	public static void main(String[] args) throws IOException {
-//		Deck deck = new Deck();
-//		ArrayList<Card> cards = deck.getDeck();
-//		int counter = 0;
-//		for (Card i : cards) {
-//			System.out.println(i.toString());
-//			i.printCard();
-//			counter++;
-//		}
-//		deck.shuffle();
-//		cards = deck.getDeck();
-//		for (Card i : cards) {
-//			System.out.println(i.toString());
-//			counter++;
-//		}
-//		System.out.println(counter);
-//	}
 }

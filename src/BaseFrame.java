@@ -9,10 +9,12 @@ public class BaseFrame extends JFrame {
 
 	GameJframe gameFrame;
 
+	// constructor
 	public BaseFrame() {
 		createMenu();
 	}
 
+	// method to create the menu
 	private void createMenu() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Menu");
