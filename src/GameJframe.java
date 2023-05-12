@@ -168,6 +168,7 @@ public class GameJframe extends BaseFrame {
 						playerCardsValue = getSum(playerCards);
 						dealerCardsValue = getSum(dealerCards);
 						main.playerScore++;
+						UpdateDB();
 						try {
 							PlayingAreaPanel.updateHands(dealerCards, playerCards);
 						} catch (IOException e1) {
@@ -209,6 +210,7 @@ public class GameJframe extends BaseFrame {
 						playerCardsValue = getSum(playerCards);
 						dealerCardsValue = getSum(dealerCards);
 						main.dealerScore++;
+						UpdateDB();
 						try {
 							PlayingAreaPanel.updateHands(dealerCards, playerCards);
 						} catch (IOException e1) {
@@ -348,7 +350,6 @@ public class GameJframe extends BaseFrame {
 		if (roundOver) {
 			return;
 		}
-
 		int cardsSum = getSum(cards);
 		// check for blackjack
 		boolean isBlackjack = cardsSum == 21 && cards.size() == 2;
@@ -360,8 +361,10 @@ public class GameJframe extends BaseFrame {
 			dealerCardsValue = getSum(dealerCards);
 			if (cards.equals(dealerCards)) {
 				main.playerScore++;
+				UpdateDB();
 			} else {
 				main.dealerScore++;
+				UpdateDB();
 			}
 			try {
 				PlayingAreaPanel.updateHands(dealerCards, playerCards);
@@ -396,8 +399,10 @@ public class GameJframe extends BaseFrame {
 			dealerCardsValue = getSum(dealerCards);
 			if (cards.equals(dealerCards)) {
 				main.dealerScore++;
+				UpdateDB();
 			} else {
 				main.playerScore++;
+				UpdateDB();
 			}
 			try {
 				PlayingAreaPanel.updateHands(dealerCards, playerCards);
