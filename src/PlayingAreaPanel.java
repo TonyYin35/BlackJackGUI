@@ -134,11 +134,11 @@ public class PlayingAreaPanel extends JComponent {
 			add(playerLabelScore);
 		}
 		// update total wins score label
-		JLabel dealerScoreLabel = new JLabel("Round won by the dealer: " + GameJframe.dealerScore);
+		JLabel dealerScoreLabel = new JLabel("Round won by the dealer: " + main.dealerScore);
 		dealerScoreLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		dealerScoreLabel.setForeground(Color.WHITE);
 
-		JLabel playerScoreLabel = new JLabel("Round won by the player: " + GameJframe.playerScore);
+		JLabel playerScoreLabel = new JLabel("Round won by the player: " + main.playerScore);
 		playerScoreLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		playerScoreLabel.setForeground(Color.WHITE);
 

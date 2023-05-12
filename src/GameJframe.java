@@ -18,6 +18,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import java.sql.*;
+
 
 public class GameJframe extends BaseFrame {
 
@@ -29,9 +31,6 @@ public class GameJframe extends BaseFrame {
 	public PlayingAreaPanel PlayingAreaPanel;
 	public static int playerCardsValue;
 	public static int dealerCardsValue;
-	// We record score
-	public static int dealerScore = 0;
-	public static int playerScore = 0;
 	ArrayList<Card> dealerCards;
 	ArrayList<Card> playerCards;
 	Deck deck;
@@ -39,6 +38,7 @@ public class GameJframe extends BaseFrame {
 	JButton JbuttonHit;
 	JButton JbuttonStand;
 	JButton JbuttonDouble;
+	static Connection connection;
 
 	public GameJframe() {
 		// set up the menu
@@ -167,7 +167,7 @@ public class GameJframe extends BaseFrame {
 						// update the card's sum
 						playerCardsValue = getSum(playerCards);
 						dealerCardsValue = getSum(dealerCards);
-						playerScore++;
+						main.playerScore++;
 						try {
 							PlayingAreaPanel.updateHands(dealerCards, playerCards);
 						} catch (IOException e1) {
@@ -208,7 +208,7 @@ public class GameJframe extends BaseFrame {
 						// update the card's sum
 						playerCardsValue = getSum(playerCards);
 						dealerCardsValue = getSum(dealerCards);
-						dealerScore++;
+						main.dealerScore++;
 						try {
 							PlayingAreaPanel.updateHands(dealerCards, playerCards);
 						} catch (IOException e1) {
@@ -359,9 +359,9 @@ public class GameJframe extends BaseFrame {
 			playerCardsValue = getSum(playerCards);
 			dealerCardsValue = getSum(dealerCards);
 			if (cards.equals(dealerCards)) {
-				playerScore++;
+				main.playerScore++;
 			} else {
-				dealerScore++;
+				main.dealerScore++;
 			}
 			try {
 				PlayingAreaPanel.updateHands(dealerCards, playerCards);
@@ -395,9 +395,9 @@ public class GameJframe extends BaseFrame {
 			playerCardsValue = getSum(playerCards);
 			dealerCardsValue = getSum(dealerCards);
 			if (cards.equals(dealerCards)) {
-				dealerScore++;
+				main.dealerScore++;
 			} else {
-				playerScore++;
+				main.playerScore++;
 			}
 			try {
 				PlayingAreaPanel.updateHands(dealerCards, playerCards);
@@ -448,7 +448,35 @@ public class GameJframe extends BaseFrame {
 		}
 		return sum;
 	}
+	
+    public static void UpdateDB() {
+        // JDBC connection parameters
+        String url = "jdbc:sqlite:blackjack.db";
 
+        // SQL statement
+        String updateDataQuery = "UPDATE blackjack SET PlayerScore = ?, DealerScore = ? WHERE ID = 1";
+
+        try (Connection connection = DriverManager.getConnection(url);
+             PreparedStatement statement = connection.prepareStatement(updateDataQuery)) {
+
+            // Set the new values
+            statement.setInt(1, main.playerScore);
+            statement.setInt(2, main.dealerScore);
+
+            // Doing the update statement
+            int rowsUpdated = statement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Data updated successfully.");
+            } else {
+                System.out.println("No rows were updated.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+	
 	// disable the buttons
 	public void buttonOff() {
 		JbuttonHit.setEnabled(false);
@@ -458,6 +486,9 @@ public class GameJframe extends BaseFrame {
 
 	// reset the properties
 	public void reset() {
+        System.out.println("dealerScore: " + main.dealerScore);
+        System.out.println("playerScore: " + main.playerScore);
+        UpdateDB();
 		dealerCards = new ArrayList<Card>();
 		playerCards = new ArrayList<Card>();
 		roundOver = false;

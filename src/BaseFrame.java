@@ -44,7 +44,6 @@ public class BaseFrame extends JFrame {
         SwingUtilities.invokeLater(() -> {
             // Create the game frame
             GameJframe gameFrame = new GameJframe();
-
             // Make it visible and dispose the menu frame
             gameFrame.setVisible(true);
             main.menuFrame.dispose();

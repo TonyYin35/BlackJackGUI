@@ -41,16 +41,15 @@ public class MenuJframe extends BaseFrame {
 		// Add the button panel to the top of the frame
 		add(buttonPanel, BorderLayout.NORTH);
 
-		// Create and add a welcome label with white text
+		// Create Jlabel with white text
 		JLabel welcomeLabel = new JLabel("Welcome to Blackjack!");
 		welcomeLabel.setFont(new Font("Bernard MT Condensed", Font.PLAIN, 36));
 		welcomeLabel.setForeground(Color.YELLOW);
 		welcomeLabel.setBounds(frameX / 3, frameY / 4 - 20, frameX / 3, frameY / 16); // 400, 200, 400, 50
 		JLabel noticeLabel = new JLabel("Click menu on the left top to start!");
-		noticeLabel.setFont(new Font("Arial", Font.BOLD, 28));
+		noticeLabel.setFont(new Font("Bernard MT Condensed", Font.BOLD, 28));
 		noticeLabel.setForeground(Color.YELLOW);
 		noticeLabel.setBounds(frameX / 4, frameY / 3 + 200, frameX / 2, frameY / 16); // 400, 200, 400, 50
-
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		noticeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(welcomeLabel, BorderLayout.CENTER);
