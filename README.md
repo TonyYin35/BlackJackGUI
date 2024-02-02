@@ -1,5 +1,10 @@
 # BlackJackGUI
 
+# ScreenShot
+<img width="1312" alt="Screen Shot 2024-02-02 at 18 05 21" src="https://github.com/TonyYin35/BlackJackGUI/assets/62121652/a53f2f2a-d660-41e0-aab2-2f33d7cca2de">
+<img width="1312" alt="Screen Shot 2024-02-02 at 18 05 29" src="https://github.com/TonyYin35/BlackJackGUI/assets/62121652/e824db4d-3b38-4fd7-91b5-6205d6f1c797">
+<img width="1200" alt="Screen Shot 2024-02-02 at 18 06 05" src="https://github.com/TonyYin35/BlackJackGUI/assets/62121652/c2c22f5f-4e6f-40cb-ae90-cc6319dd3d53">
+
 ## Introduction
 **Welcome to BlackJackGUI**, an engaging digital rendition of the classic casino card game, Blackjack. This Java-based game combines the interactive elements of a graphical user interface (GUI) with the robust back-end capabilities of Java Database Connectivity (JDBC) to provide a seamless and entertaining experience for players. Developed by Tony Yin, this project not only allows you to enjoy the game but also keeps track of your scores locally, adding a competitive edge to your gaming experience.
 
